@@ -42,6 +42,6 @@ spring:
       client:
         registration:
           google:
-            client-id: mars-client-id
-            client-secret: mars-client-secret
+            client-id: CLIENT_ID
+            client-secret: CLIENT_SECRET
             scope: openid,profile,email

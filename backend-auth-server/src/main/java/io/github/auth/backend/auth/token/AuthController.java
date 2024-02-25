@@ -13,6 +13,7 @@ import io.github.auth.backend.auth.registration.model.Role;
 import io.github.auth.backend.auth.registration.model.User;
 import io.github.auth.backend.auth.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.oauth2.jwt.Jwt;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
 import org.springframework.security.oauth2.jwt.JwtDecoders;
@@ -29,8 +30,8 @@ import java.util.stream.Collectors;
 @RestController
 public class AuthController {
 
-    //@Value("${google.oauth2.clientId}")
-    private String googleClientId = "574285438559-b3ab2lhd5ho5qfpd3norupuhao1fa8ar.apps.googleusercontent.com";
+    @Value("${spring.security.oauth2.client.registration.google.client-id}")
+    private String googleClientId;
 
     @Autowired
     JWKSet jwkSet;
