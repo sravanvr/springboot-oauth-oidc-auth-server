@@ -1,0 +1,28 @@
+server:
+  port: 8080
+
+logging:
+  level:
+    root: DEBUG
+    org.springframework.web: debug
+
+
+spring:
+  security:
+    oauth2:
+#      client:
+#        registration:
+#          google:
+#            client-id: 574285438559-b3ab2lhd5ho5qfpd3norupuhao1fa8ar.apps.googleusercontent.com
+#            client-secret: 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
+#            scope: openid,profile,email
+#          marsclient:
+#            client-id: mars-client-id
+#            client-secret: mars-client-secret
+#            scope: openid,profile,email
+      resourceserver:
+        jwt:
+#          issuer-uri: https://accounts.google.com
+#          jwk-set-uri: https://www.googleapis.com/oauth2/v3/certs
+          issuer-uri: http://localhost:8081
+          jwk-set-uri: http://localhost:8081/.well-known/jwks.json

@@ -1,0 +1,12 @@
+{
+  "keys": [
+    {
+      "kty": "RSA",
+      "n": "",
+      "e": "AQAB",
+      "alg": "RS256",
+      "kid": "AUTH_PRIVATE_RSA_KEY_ID",
+      "use": "sig"
+    }
+  ]
+}
