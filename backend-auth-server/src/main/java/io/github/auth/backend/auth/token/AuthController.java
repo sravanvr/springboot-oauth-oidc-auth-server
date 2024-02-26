@@ -51,12 +51,11 @@ public class AuthController {
             // Verify the audience claim matches your client ID
             if (jwt.getAudience().contains(googleClientId)) {
                 // Token is valid, proceed to issue your own token
-                System.out.println("Here..." + jwt.getSubject());
-                System.out.println("Here..." + jwt.getClaims());
+                System.out.println("ID token subject: " + jwt.getSubject());
+                System.out.println("ID token claims: " + jwt.getClaims());
                 String newAccessToken;
 
-                //newAccessToken = issueAccessToken(jwt);
-
+                // Issue an Access token with signature using Auth servers own private key.
                 newAccessToken = createSignedTokenFromJWK(jwt);
                 return newAccessToken;
             } else {
@@ -88,6 +87,7 @@ public class AuthController {
 
         User user = userService.findOrCreateUser(jwt);
 
+        // Identify authorities for the authenticated user.
         String roleNames =
                 user.getRoles().stream()
                         .map(Role::getName)
@@ -99,6 +99,7 @@ public class AuthController {
                 .distinct() // Optional: Remove duplicates if a privilege appears in multiple roles
                 .collect(Collectors.joining(", "));
 
+        // Issue access token with identified authorities for the user.
         JWTClaimsSet claimsSet = new JWTClaimsSet.Builder()
                 .subject(jwt.getSubject())
                 .issuer(jwt.getIssuer().toString())
@@ -116,10 +117,14 @@ public class AuthController {
 
         System.out.println("Verification success: " + verifyJwtSignatureWithJwk(signedJWT.serialize()));
 
-
         return signedJWT.serialize();
     }
 
+    /**
+     * This is convenience method to verify the JWT
+     * @param token
+     * @return true if signature is valid otherwise false.
+     */
     public boolean verifyJwtSignatureWithJwk(String token) {
         try {
             // Parse the JWT
